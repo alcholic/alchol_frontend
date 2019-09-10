@@ -8,10 +8,11 @@ import HomeTab from './AppTabNavigator/HomeTab'
 import FeedTab from './AppTabNavigator/FeedTab'
 import PlayTab from './AppTabNavigator/PlayTab'
 import MyTab from './AppTabNavigator/MyTab'
+import ToDoTab from './ToDo/ToDoTab'
 
 export default class MainScreen extends Component {
     static navigationOptions = {
-        title: '술기장',
+        backgroundColor: "#ffd939",
         headerRight: <Icon name='ios-notifications' style={{ paddingRight:10 }}/>,
     }
 
@@ -25,7 +26,8 @@ const AppTabNavigator = createMaterialTopTabNavigator({
     HomeTab: { screen: HomeTab },
     FeedTab: { screen: FeedTab },
     PlayTab: { screen: PlayTab },
-    MyTab: { screen: MyTab }
+    MyTab: { screen: MyTab },
+    ToDoTab: { screen: ToDoTab }
 }, {
     animationEnabled: true,
     swipeEnabled: true,
@@ -34,7 +36,7 @@ const AppTabNavigator = createMaterialTopTabNavigator({
         style: {
         ...Platform.select({
             ios:{
-            backgroundColor:'white',
+                backgroundColor:'white',
             }
         })
         },
@@ -54,5 +56,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
