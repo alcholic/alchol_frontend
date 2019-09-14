@@ -45,13 +45,13 @@ export default class LoginScreen extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.kakaoLogin}
-                    onPress={() => this.props.navigation.replace('Main')}
+                    onPress={() => this.props.navigation.replace('Tab')}
                 >
                     <Text style={styles.kText}>카카오톡 로그인 하기</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.naverLogin}
-                    onPress={() => this.props.navigation.replace('Main')}
+                    onPress={() => this.props.navigation.replace('Tab')}
                 >
                     <Text style={styles.fText}>네이버 로그인 하기</Text>
                 </TouchableOpacity>

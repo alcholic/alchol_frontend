@@ -31,7 +31,6 @@ export default class PlayTab extends Component {
 
     render() {
         const { newToDo, loadedToDos, toDos }  = this.state;
-        console.log(toDos);
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />

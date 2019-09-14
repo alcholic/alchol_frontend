@@ -4,21 +4,20 @@ import { Icon, Button } from 'native-base';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 
-import HomeTab from './AppTabNavigator/HomeTab'
-import FeedTab from './AppTabNavigator/FeedTab'
-import PlayTab from './AppTabNavigator/PlayTab'
-import MyTab from './AppTabNavigator/MyTab'
-import ToDoTab from './ToDo/ToDoTab'
+import HomeTab from './HomeTab'
+import FeedTab from './FeedTab'
+import PlayTab from './PlayTab'
+import MyTab from './MyTab'
+import ToDoTab from '../ToDo/ToDoTab'
 
 export default class MainScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         const params = navigation.state.params || {};
-
         return {
           headerRight: 
             <Icon 
                 name='ios-notifications' 
-                color='#58595B'
+                color='white'
                 style={{ paddingRight:10 }}
                 onPress={() => navigation.navigate('Alarm')}
             />,
@@ -27,7 +26,7 @@ export default class MainScreen extends Component {
                 borderBottomWidth: 0
             }
         };
-      };
+    };
     
     render() {
         return <AppTabContainer/>;
@@ -63,11 +62,3 @@ const AppTabNavigator = createMaterialTopTabNavigator({
 });
 
 const AppTabContainer = createAppContainer(AppTabNavigator);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

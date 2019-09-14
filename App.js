@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation';
-import MainScreen from './Components/MainScreen';
+import TabScreen from './Components/AppTabNavigator/TabScreen';
 import LoginScreen from './Components/Login/LoginScreen';
 import AlarmScreen from './Components/Alarm/AlarmScreen';
 
@@ -12,8 +12,8 @@ const AppStackNavigator = createStackNavigator({
       header: null,
     },
   },
-  Main:{
-    screen: MainScreen
+  Tab:{
+    screen: TabScreen
   },
   Alarm: {
     screen: AlarmScreen,
