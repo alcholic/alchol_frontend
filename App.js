@@ -23,8 +23,11 @@ const AppStackNavigator = createStackNavigator({
       headerStyle: {
         borderBottomWidth: 0,
       }
-    },
+    }
   }
-});
+}, {
+  mode: 'modal'
+}
+);
 
 export default createAppContainer(AppStackNavigator);
