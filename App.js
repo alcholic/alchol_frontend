@@ -7,22 +7,24 @@ import AlarmScreen from './Components/Alarm/AlarmScreen';
 
 const AppStackNavigator = createStackNavigator({
   Login: {
-    screen: LoginScreen
+    screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   Main:{
     screen: MainScreen
   },
   Alarm: {
-    screen: AlarmScreen
-  },
-},
-{
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: '#ffd939',
+    screen: AlarmScreen,
+    navigationOptions: {
+      headerTitle: '알림',
+      headerTintColor: '#58595B',
+      headerStyle: {
+        borderBottomWidth: 0,
+      }
     },
-    headerTintColor: '#58595B',
-  },
+  }
 });
 
 export default createAppContainer(AppStackNavigator);

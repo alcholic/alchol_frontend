@@ -22,6 +22,10 @@ export default class MainScreen extends Component {
                 style={{ paddingRight:10 }}
                 onPress={() => navigation.navigate('Alarm')}
             />,
+            headerStyle: {
+                backgroundColor: '#ffd939',
+                borderBottomWidth: 0
+            }
         };
       };
     
