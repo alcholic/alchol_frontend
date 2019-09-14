@@ -7,20 +7,33 @@ import {
     StyleSheet,
     TextInput
 } from "react-native";
+import PropsTypes from "prop-types";
 
 const { width, heigth} = Dimensions.get("window");
 
 // class(stateful) componenent vs stateless component
 // todo 생성 버튼을 누르게 되면, state 모드로 바꿔야함.
 export default class ToDo extends Component {
-    state = {
-        isEditing: false,
-        isCompleted: false,
-        toDoValue: ""
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEditing: false,
+            toDoValue: this.props.text
+        }
     }
+    static propTypes = {
+        text: PropsTypes.string.isRequired,
+        isCompleted: PropsTypes.bool.isRequired,
+        deleteToDo: PropsTypes.func.isRequired,
+        id: PropsTypes.string.isRequired,
+        uncompleteToDo: PropsTypes.func.isRequired,
+        completeToDo: PropsTypes.func.isRequired,
+        updateToDo: PropsTypes.func.isRequired
+    };
+    
     render() {
-        const { isCompleted, isEditing, toDoValue } = this.state;
-        const { text } = this.props;
+        const { isEditing, toDoValue } = this.state;
+        const { text, id, deleteToDo, isCompleted } = this.props;
 
         return (
             <View style={styles.container}>
@@ -70,7 +83,7 @@ export default class ToDo extends Component {
                                 <Text style={styles.actionText}>⭕️</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteToDo(id)}>
                             <View style={styles.actionContainer}>
                                 <Text style={styles.actionText}>❌</Text>
                             </View>
@@ -82,22 +95,24 @@ export default class ToDo extends Component {
     }
 
     _toggleComplete = () => {
-        this.setState(prevState => {
-            return {
-                isCompleted: !prevState.isCompleted
-            };
-        });
+        const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
+        if(isCompleted) {
+            uncompleteToDo(id);
+        } else {
+            completeToDo(id);
+        }
     };
 
     _startEditing = () => {
-        const { text } = this.props;
         this.setState({
-            isEditing: true,
-            toDoValue: text
+            isEditing: true
         });
     };
 
     _finishEditing = () => {
+        const {toDoValue} = this.state;
+        const {id, updateToDo} = this.props;
+        updateToDo(id, toDoValue);
         this.setState({
             isEditing: false
         });
@@ -148,8 +163,8 @@ const styles = StyleSheet.create({
     column: {
         flexDirection: "row",
         alignItems: "center",
-        width: width / 2,
-        justifyContent: "space-between"
+        width: width / 2
+        //justifyContent: "space-between"
     }, 
     actions: {
         flexDirection:"row"

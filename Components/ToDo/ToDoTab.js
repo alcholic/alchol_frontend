@@ -12,12 +12,15 @@ import {
 import ToDo from './ToDo';
 import { Icon } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
+import uuidv1 from "uuid/v1";
 
 const { height, width } = Dimensions.get("window");
 
 export default class PlayTab extends Component {
     state = {
-        newToDo: ""
+        newToDo: "",
+        loadedToDos: false,
+        toDos: {}
     }
 
     static navigationOptions = {
@@ -27,7 +30,8 @@ export default class PlayTab extends Component {
     }
 
     render() {
-        const { newToDo }  = this.state;
+        const { newToDo, loadedToDos, toDos }  = this.state;
+        console.log(toDos);
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />
@@ -41,9 +45,18 @@ export default class PlayTab extends Component {
                         placeholderTextColor={"#999"}
                         returnkeyType={"done"}
                         autoCorrect={false}
+                        onSubmitEditing={this._addToDo}//완료를 클릭할때의 funciton
                     />
                     <ScrollView contentContainerStyles={styles.toDos}>
-                        <ToDo text={"리마가 하이를 초대하였습니다. 수락하시겠습니까?"}/>
+                        {Object.values(toDos).map(toDo => 
+                        <ToDo 
+                            key={toDo.id} 
+                            deleteToDo={this._deleteToDo} 
+                            uncompleteToDo={this._uncompleteToDo}
+                            completeToDo={this._completeToDo}
+                            updateToDo={this._updateToDo}
+                            {...toDo}
+                        />)}
                     </ScrollView>
                 </View>
             </View>
@@ -55,6 +68,99 @@ export default class PlayTab extends Component {
             newToDo: text
         });
     };
+
+    _loadToDos = () => {
+        this.setState({
+            loadedToDos: true
+        });
+    };
+
+    _addToDo = () => {
+        const { newToDo } = this.state;
+        if(newToDo !== "") {
+            this.setState(prevState => {
+                const ID = uuidv1();
+                const newToDoObject = {
+                    [ID] : {
+                        id: ID,
+                        isCompleted: false,
+                        text: newToDo,
+                        createdAt: Date.now
+                    }
+                };
+                const newState = {
+                    ...prevState,
+                    newToDo: "",
+                    toDos: {
+                        ...prevState.toDos,
+                        ...newToDoObject
+                    }
+                }
+                return {
+                    ...newState
+                };
+            });
+        };
+    }
+
+    _deleteToDo = (id) => {
+        this.setState(prevState => {
+            const toDos = prevState.toDos;
+            delete toDos[id];
+            const newState = {
+                ...prevState,
+                ...toDos
+            }
+            return { ...newState};
+        });
+    };
+
+    _uncompleteToDo = (id) => {
+        this.setState(prevState => {
+            const newState = {
+                ...prevState,
+                toDos: {
+                    ...prevState.toDos,
+                    [id]: {
+                        ...prevState.toDos[id],
+                        isCompleted: false
+                    }
+                }
+            };
+            return { ...newState };
+        });
+    }
+
+    _completeToDo = (id) => {
+        this.setState(prevState => {
+            const newState = {
+                ...prevState,
+                toDos: {
+                    ...prevState.toDos,
+                    [id]: {
+                        ...prevState.toDos[id],
+                        isCompleted: true
+                    }
+                }
+            };
+            return { ...newState };
+        });
+    }
+    _updateToDo = (id, text) => {
+        this.setState(prevState => {
+            const newState = {
+                ...prevState,
+                toDos: {
+                    ...prevState.toDos,
+                    [id]: {
+                        ...prevState.toDos[id],
+                        text: text
+                    }
+                }
+            };
+            return { ...newState };
+        });
+    }
 }
 
 const styles = StyleSheet.create({
