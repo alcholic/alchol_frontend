@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet,  Platform} from 'react-native';
-import { Icon } from 'native-base';
+import { Icon, Button } from 'native-base';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 
@@ -11,11 +11,20 @@ import MyTab from './AppTabNavigator/MyTab'
 import ToDoTab from './ToDo/ToDoTab'
 
 export default class MainScreen extends Component {
-    static navigationOptions = {
-        backgroundColor: "#ffd939",
-        headerRight: <Icon name='ios-notifications' style={{ paddingRight:10 }}/>,
-    }
+    static navigationOptions = ({ navigation }) => {
+        const params = navigation.state.params || {};
 
+        return {
+          headerRight: 
+            <Icon 
+                name='ios-notifications' 
+                color='#58595B'
+                style={{ paddingRight:10 }}
+                onPress={() => navigation.navigate('Alarm')}
+            />,
+        };
+      };
+    
     render() {
         return <AppTabContainer/>;
     }
