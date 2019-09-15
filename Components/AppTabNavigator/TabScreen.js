@@ -27,7 +27,6 @@ export default class MainScreen extends Component {
             }
         };
     };
-    
     render() {
         return <AppTabContainer/>;
     }

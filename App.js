@@ -18,16 +18,9 @@ const AppStackNavigator = createStackNavigator({
   Alarm: {
     screen: AlarmScreen,
     navigationOptions: {
-      headerTitle: '알림',
-      headerTintColor: '#58595B',
-      headerStyle: {
-        borderBottomWidth: 0,
-      }
+      header: null,
     }
   }
-}, {
-  mode: 'modal'
-}
-);
+});
 
 export default createAppContainer(AppStackNavigator);

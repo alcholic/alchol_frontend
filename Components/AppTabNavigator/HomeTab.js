@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { Icon } from 'native-base';
+
+const { height } = Dimensions.get("window");
 
 export default class HomeTab extends Component {
     static navigationOptions = {
@@ -8,20 +10,17 @@ export default class HomeTab extends Component {
             <Icon name='ios-home' style={{ color: tintColor }} />
         )
     }
-
     render() {
         return (
-            <View style={style.container}>
-                <Text>HomeTab</Text>
+            <View style={styles.container}>
             </View>
         );
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
