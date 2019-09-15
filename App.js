@@ -8,7 +8,7 @@ import {combineReducers} from "redux";
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import { loginReducer } from './Components/Login/LoginReducer'
+import loginReducer from './Components/Login/LoginReducer'
 
 
 const RootReducer = combineReducers({

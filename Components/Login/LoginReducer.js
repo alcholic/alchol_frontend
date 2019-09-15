@@ -3,7 +3,7 @@ import {LOGIN} from "./LoginAction";
 
 const initialState = {};
 
-export const loginReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
     const { user } = action;
     switch (action.type) {
         case LOGIN :
@@ -12,3 +12,5 @@ export const loginReducer = (state = initialState, action) => {
             return Object.assign({}, state, {});
     }
 };
+
+export default loginReducer;

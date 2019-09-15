@@ -28,11 +28,12 @@ export default class AlarmScreen extends React.Component {
               </Body>
               <Right></Right>
           </Header>
-          <View style={ styles.button }>
+          <View style={styles.inviteView}>
             <TouchableOpacity
+                style={styles.button}
                 onPress={ () => this.props.navigation.goBack() }
             >
-              <Text>모임 초대 요청 4건</Text>
+              <Text style={styles.inviteText}>모임 초대 요청 4건</Text>
             </TouchableOpacity>
           </View>
           <ScrollView style={ styles.list }>
@@ -45,7 +46,7 @@ export default class AlarmScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 5
+      width: width,
   },
   header: {
     backgroundColor: "white",
@@ -57,13 +58,31 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 17
   },
+  inviteView : {
+      marginTop: 10,
+      height: 35,
+      width:width,
+      textAlign: 'center',
+      alignItems: "center"
+  },
   button: {
-    flex: 1,
+    alignItems: "center",
+    textAlign: 'center',
     backgroundColor: '#ffd939',
-    borderRadius: 15,
+    borderRadius: 10,
     width: width - 30,
+    flex: 1,
+    flexDirection: "row"
   },
   list: {
     flex: 4
+  },
+  inviteText: {
+        width: '100%',
+        textAlign: 'center',
+        fontWeight: "200",
+        fontSize: 15,
+        marginVertical: 0,
+        color:"#555"
   }
 });

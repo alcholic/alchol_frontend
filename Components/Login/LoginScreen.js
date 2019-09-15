@@ -11,20 +11,31 @@ import {
 import LocalStore from '../LocalStore'
 import {User} from "./User";
 import LoginAction from "./LoginAction";
+import {connect} from "react-redux";
 
 const { width, height} = Dimensions.get("window");
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
     Login() {
+        console.log(this.props.user);
         this.state = {
 
         }
     }
 
     componentDidMount() {
-        console.log("login? :: ");
-        LocalStore.storeData("user", JSON.stringify(new User("010101", "asdasd")));
-        console.log(LocalStore.retrieveData("user"))
+        let user = LocalStore.retrieveData("user");
+        if(user != null && user.id != null) {
+            this.props.navigation.replace('Tab');
+        }
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        let user = nextProps.user;
+        if(user != null) {
+            LocalStore.storeData("user", JSON.stringify(user));
+            this.props.navigation.replace('Tab');
+        }
     }
 
     render() {
@@ -38,7 +49,7 @@ export default class LoginScreen extends Component {
                 <TouchableOpacity
                     style={styles.faceBookLogin}
                     onPress={() =>
-                        new LoginAction().login()
+                        new LoginAction().login(this.props.dispatch)
                     }
                 >
                     <Text style={styles.fText}>페이스북 로그인 하기</Text>
@@ -62,8 +73,15 @@ export default class LoginScreen extends Component {
             </View>
         );
     }
-
 }
+
+function select(state) {
+    return {
+        user: state.loginReducer
+    }
+}
+
+export default connect(select)(LoginScreen);
 
 
 const styles = StyleSheet.create({
@@ -98,7 +116,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         fontWeight: "200",
-        fontSize: 15,
+        fontSize: 12.5,
         marginVertical: 10,
         backgroundColor: "#3A61B5"
     },
@@ -109,7 +127,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         fontWeight: "200",
-        fontSize: 15,
+        fontSize: 12.5,
         marginVertical: 10,
         backgroundColor: "#E7E600"
     },
@@ -120,7 +138,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         fontWeight: "200",
-        fontSize: 15,
+        fontSize: 12.5,
         marginVertical: 10,
         backgroundColor: "#40A940"
     },
