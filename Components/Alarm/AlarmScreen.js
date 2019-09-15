@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { 
   Container,
   Icon, 
@@ -9,10 +9,12 @@ import {
   Body 
 } from 'native-base';
 
+const { height, width } = Dimensions.get("window");
+
 export default class AlarmScreen extends React.Component {
     render() {
       return (
-        <Container>
+        <Container style={styles.container}>
           <Header style={styles.header}>
               <Left>
                 <Icon 
@@ -26,12 +28,23 @@ export default class AlarmScreen extends React.Component {
               </Body>
               <Right></Right>
           </Header>
+          <View>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={ () => this.props.navigation.goBack() }
+            >
+              <Text>모임 초대 요청 4건</Text>
+            </TouchableOpacity>
+          </View>
         </Container>
       );
     }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   header: {
     backgroundColor: "white",
     borderBottomWidth: 0
@@ -41,5 +54,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17
+  },
+  button: {
+    backgroundColor: '#ffd939',
+    borderRadius: 15,
+    width: width - 30,
   }
 });
