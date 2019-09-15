@@ -28,14 +28,16 @@ export default class AlarmScreen extends React.Component {
               </Body>
               <Right></Right>
           </Header>
-          <View>
+          <View style={ styles.button }>
             <TouchableOpacity
-                style={styles.button}
                 onPress={ () => this.props.navigation.goBack() }
             >
               <Text>모임 초대 요청 4건</Text>
             </TouchableOpacity>
           </View>
+          <ScrollView style={ styles.list }>
+
+          </ScrollView>
         </Container>
       );
     }
@@ -43,7 +45,7 @@ export default class AlarmScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 5
   },
   header: {
     backgroundColor: "white",
@@ -56,8 +58,12 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   button: {
+    flex: 1,
     backgroundColor: '#ffd939',
     borderRadius: 15,
     width: width - 30,
+  },
+  list: {
+    flex: 4
   }
 });
